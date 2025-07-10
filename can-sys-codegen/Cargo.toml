@@ -1,0 +1,8 @@
+[package]
+name = "can-sys-codegen"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dbc-codegen = "0.3.0"
+walkdir = "2.5.0"
