@@ -35,7 +35,7 @@
     (python312.withPackages (ps: with ps; [
       opendbc
       panda
-    ])
+    ]))
   ];
 
   programs = {
