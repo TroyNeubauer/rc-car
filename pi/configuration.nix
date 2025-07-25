@@ -3,13 +3,16 @@
   # NOTE: dont import hardware-configuration.nix like usual here, since that would conflict with nixosGenerate's config
   
   boot = {
-    initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" "brcmfmac" ];
+    initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" ];
+    kernelModules = [ "brcmfmac" "brcmutil" ];
+
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
     };
   };
 
+  hardware.enableRedistributableFirmware = true;
   hardware.firmware = with pkgs; [
     raspberrypiWirelessFirmware
   ];
