@@ -56,8 +56,15 @@
     firewall.enable = false;
 
     usePredictableInterfaceNames = false;
-    wireless.enable = true; 
-    wireless.interfaces = [ "wlan0" ];
+    wireless = {
+      enable = true; 
+      interfaces = [ "wlan0" ];
+      secretsFile = "/etc/secrets/wireless.conf";
+
+      networks = {
+        "G5T5C".psk = "ext:psk_g5t5c";
+      };
+    };
 
     interfaces.eth0 = {
       useDHCP = true;
