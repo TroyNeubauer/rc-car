@@ -47,6 +47,7 @@
 
     usePredictableInterfaceNames = false;
     wireless.enable = true; 
+    wireless.interfaces = [ "wlan0" ];
 
     interfaces.eth0 = {
       useDHCP = true;
