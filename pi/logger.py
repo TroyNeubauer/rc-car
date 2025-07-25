@@ -2,6 +2,7 @@
 from panda import Panda
 import opendbc.can.parser as parser
 from opendbc.can.packer import CANPacker
+from opendbc.car.structs import CarParams
 import time
 import gzip
 import struct
@@ -9,13 +10,13 @@ import os
 
 def run_logger():
     panda = Panda()
-    panda.set_safety_mode(Panda.SAFETY_ALLOUTPUT)
+    panda.set_safety_mode(CarParams.SafetyModel.allOutput)
 
-    log_dir = "/data/logs"
+    log_dir = "./logs"
     os.makedirs(log_dir, exist_ok=True)
     timestamp = int(time.time())
     log_file = f"{log_dir}/{timestamp}--can.log"
-    
+
     with open(log_file, 'wb') as f:
         while True:
             msgs = panda.can_recv()
