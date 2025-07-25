@@ -29,10 +29,13 @@
     file
     git
     htop
-    python3
     ripgrep
     tree
     wireguard-tools
+    (python312.withPackages (ps: with ps; [
+      opendbc
+      panda
+    ])
   ];
 
   programs = {

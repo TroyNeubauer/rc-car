@@ -11,7 +11,20 @@
   };
   outputs = { nixpkgs, flake-utils, nixos-generators, nixos-hardware, ... }:
     let
-      overlay = final: prev: { god = prev.callPackage ./pi/god.nix {}; };
+      overlay = final: prev: {
+        god = prev.callPackage ./pi/god.nix {};
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (python-final: python-prev: {
+            # Use final.callPackage, not python-prev.callPackage
+            opendbc = final.callPackage ./pi/opendbc.nix {
+              pythonPackages = python-final;
+            };
+            panda = final.callPackage ./pi/panda.nix {
+              pythonPackages = python-final;
+            };
+          })
+        ];
+      };
       mkPkgs = system: import nixpkgs { inherit system; overlays = [ overlay ]; };
     in
     flake-utils.lib.eachDefaultSystem (system:
@@ -31,7 +44,10 @@
               { nixpkgs.overlays = [ overlay ]; }
             ];
           };
-        } // { inherit (pkgs) god; };
+        } // {
+          inherit (pkgs) god;
+          inherit (pkgs.python312Packages) panda opendbc;
+        };
       }
     ) // {
       nixosConfigurations = {
