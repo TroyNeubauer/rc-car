@@ -100,8 +100,9 @@ let
     '';
   };
 
-  pandaSrc = fetchgit {
-    url = "https://github.com/commaai/panda.git";
+  pandaSrc = fetchFromGitHub {
+    owner = "commaai";
+    repo  = "panda";
     rev = "ee32eb524085f4bf8fbcc6abc123f45a0f13fd42";
     sha256 = "sha256-ftDmfEKaQLovkG7hkv51FEmWycrWiizklk80yTf5YAY=";
     leaveDotGit = true;
