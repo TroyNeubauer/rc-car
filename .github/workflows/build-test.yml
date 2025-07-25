@@ -25,7 +25,6 @@ jobs:
           nix_path: nixpkgs=channel:nixos-24.11
       - run: "nix flake check --verbose --show-trace"
       - run: "nix build .#god --print-out-paths --verbose --show-trace"
-jobs:
   check_arm:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 15
