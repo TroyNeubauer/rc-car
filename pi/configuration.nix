@@ -62,7 +62,7 @@
       secretsFile = "/etc/secrets/wireless.conf";
 
       networks = {
-        "G5T5C".psk = "ext:psk_g5t5c";
+        "G5T5C".pskRaw = "ext:psk_g5t5c_raw";
       };
     };
 
