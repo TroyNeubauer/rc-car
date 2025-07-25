@@ -2,8 +2,8 @@
 
 ## Archtecture
 - Car:
-  - Comma.ai Panda for multiplexing multiple CAN busses in car into USB interface
-  - Rasberry Pi:
+  - Comma.ai Panda for multiplexing multiple CAN buses in car into USB interface
+  - Raspberry Pi:
     - Connected via ip radio to GCS
     - Receiving commands from GCS, converting to car-specific CAN commands and sending to Panda
     - Transmitting video from webcam to GCS
@@ -13,8 +13,8 @@
   - Joystick / G920 for car inputs
   - Monitor for video output / dashboard (speed, killswitch, etc.)
 
-## Possible cars:
-The car used needs to be able to stop and resume automonously from a dead stop.
+### Possible cars:
+The car used needs to be able to stop and resume autonomously from a dead stop.
 Some early LKAS systems have a minimumm speed thus requiring human intervention to get rolling.
 
 The 22-24 Honda Civic, 21-24 Camry, or 20-22 Corolla can resume from a stop according to [this page](https://comma.ai/vehicles).
@@ -26,7 +26,7 @@ We have provisioned Toyota A + Bosch A + Bosch B connectors which should allow c
 
 ## PI info
 
-The PI will assign `10.10.15.1/24` to its ethernet port, allowing for easy hardlinking.
+The PI assigns `10.10.15.1/24` to its ethernet port, allowing for easy hardlinking.
 
 ### Provisioning a PI
 
