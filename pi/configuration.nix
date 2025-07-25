@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   # NOTE: dont import hardware-configuration.nix like usual here, since that would conflict with nixosGenerate's config
   
@@ -80,6 +80,7 @@
     description = "GO Daemon (for driving cars)";
     wants = [ "network.target" ];
     after = [ "network.target" ];
+    enable = lib.mkDefault true;
 
     serviceConfig = {
       ExecStart = "${pkgs.god}/bin/god";

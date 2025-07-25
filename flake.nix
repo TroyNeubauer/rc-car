@@ -2,29 +2,34 @@
   description = "Base system for Raspberry Pi 4";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = { nixpkgs, flake-utils, nixos-generators, nixos-hardware, ... }:
     let
-      systems = [ "x86_64-linux" "aarch64-linux" ];
       overlay = final: prev: { god = prev.callPackage ./pi/god.nix {}; };
       mkPkgs = system: import nixpkgs { inherit system; overlays = [ overlay ]; };
     in
-    flake-utils.lib.eachSystem systems (system:
+    flake-utils.lib.eachDefaultSystem (system:
       let pkgs = mkPkgs system;
       in
       {
         devShells = {
-          default = pkgs.mkShell { buildInputs = [ pkgs.god ]; };
+          default = pkgs.mkShell { inputsFrom = [ pkgs.god ]; };
         };
         packages = pkgs.lib.optionalAttrs (system == "aarch64-linux") {
           # For flashing initial pi closure to sd-card
           pi-sdcard = nixos-generators.nixosGenerate {
-            inherit system pkgs;
+            inherit system;
             format = "sd-aarch64";
-            modules = [ ./pi/configuration.nix ];
+            modules = [
+              ./pi/configuration.nix
+              { nixpkgs.overlays = [ overlay ]; }
+            ];
           };
         } // { inherit (pkgs) god; };
       }
