@@ -4,7 +4,7 @@ let
     owner = "commaai";
     repo  = "panda";
     rev = "ee32eb524085f4bf8fbcc6abc123f45a0f13fd42";
-    sha256 = "sha256-Z04BOs1aI070EqA0QpgLE9gBN0uBDbJQdz3WDNj2+DY=";
+    sha256 = "sha256-qf9VcXnv4XHx3R/gduiepPnw4sV/dXbWRA5YW4R6GmY=";
   };
 in pythonPackages.buildPythonPackage rec {
   pname = "panda";
